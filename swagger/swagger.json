@@ -1,0 +1,84 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Payment Gateway API",
+    "version": "1.0.0",
+    "title": "Payment Gateway API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "paths": {
+    "/payments": {
+      "post": {
+        "summary": "Create a payment",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "payment",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": { "type": "integer" },
+                "amount": { "type": "number" },
+                "currency": { "type": "string" },
+                "payment_method": { "type": "string" }
+              },
+              "required": ["user_id", "amount", "currency", "payment_method"]
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Payment created" }
+        }
+      }
+    },
+    "/payments/{id}/process": {
+      "post": {
+        "summary": "Process a payment",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Payment processed" }
+        }
+      }
+    },
+    "/payments/{id}": {
+      "get": {
+        "summary": "Retrieve payment status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Payment status retrieved" }
+        }
+      }
+    },
+    "/payments/{id}/refund": {
+      "post": {
+        "summary": "Handle refunds",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Payment refunded" }
+        }
+      }
+    }
+  }
+}
